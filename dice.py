@@ -41,7 +41,7 @@ class Dice:
             die1 = random.randint(1, 6)
             die2 = random.randint(1, 6)
 
-        return die1, die2
+        return die1 + die2
 
     def roll_single(self):
         """Rolls a single die (for tiebreakers)."""
