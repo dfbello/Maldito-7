@@ -15,29 +15,32 @@ class Match:
             player.current_loss = -initial_bet
 
     def play(self):
+
+        self.current_player = self.tie_break(self.players)
+
         while self.in_play:
             player = self.players[self.current_player]
             
             print(f"\n______________________________________________________\n")
             print(f"\n{player.name}, es tu turno.\n")
-            print(f"Números faltantes para ganar\n\t{player.board}\n")
+            print(f"\tNúmeros faltantes para ganar\n\t{player.board}\n")
 
             if not self.auto_mode:
                 # Prompt the user to press Enter to roll the dice
-                input("Presiona Enter para lanzar los dados...\n")
+                input("\tPresiona Enter para lanzar los dados...\n")
 
             # Roll the dice
             roll = self.dice.roll()
-            print(f"{player.name} sacó 🎲 {roll}\n")
+            print(f"\t{player.name} sacó 🎲 {roll}\n")
 
             if roll in player.board:
                 player.board.remove(roll)
                 if self.check_winner(player):
                     break
-                print(f"{player.board}")
-                print(f"¡Bien {player.name}! Te quedan {len(player.board)} número(s) para ganar.\n")
+                print(f"\t{player.board}")
+                print(f"\t¡Bien {player.name}! Te quedan {len(player.board)} número(s) para ganar.\n")
             elif roll == 7:
-                print(f"💰 ¡Maldito 7! {player.name} agrega {self.cace} a la bolsa de premio. 💰 ({self.price})\n")
+                print(f"\t💰 ¡Maldito 7! {player.name} agrega {self.cace} a la bolsa de premio. 💰 ({self.price})\n")
                 self.price += self.cace
                 player.current_loss -= self.cace
                 self.current_player = (self.current_player + 1) % len(self.players)
@@ -89,3 +92,39 @@ class Match:
             print(f"\t\t{player.name}: {player.board}")
 
         return
+    
+    def tie_break(self, players):
+        
+        if len(players) == 1:
+            return self.players.index(*players)
+        
+        print(f"\n🎲 ¡Desempate! 🎲")
+        max_number = 0
+        tied_players = []
+
+        for player in players:
+            print(f"\n______________________________________________________\n")
+            print(f"\n{player.name}, es tu turno.\n")
+
+            if not self.auto_mode:
+                # Prompt the user to press Enter to roll the die
+                input("\tPresiona Enter para lanzar el dado...\n")
+            
+            # Roll the die
+            roll = self.dice.roll_single()
+            print(f"\t{player.name} sacó 🎲 {roll}\n")
+
+            if roll > max_number:
+                max_number = roll
+                tied_players = [player]
+            elif roll == max_number:
+                tied_players.append(player) 
+        
+        return self.tie_break(tied_players)
+        
+        
+
+        
+
+       
+        
