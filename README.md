@@ -1,25 +1,24 @@
 # Maldito 7
 
-Es un juego donde los jugadores lanzan dos dados de 6 caras, cada jugador tiene un tablero con 11 casillas enumeradas del 1 al 12 excluyendo el 7.
+A game where the roll of the dice determines the winner, with some extra steps. Perfect for my fellow gambling addicts (just jk). 
 
-## Reglas
-* El primer jugador es determinado por el desempate de un dado
-* En un turno individual el jugador lanza los dados, el número que sale es cubierto por el jugador en su tablero, el jugador lanza los dados hasta que el número que salga ya esté cubierto por él, es turno del siguiente jugador que no tenga ese número en su tablero en orden anti-horario.
-* Cuando un jugador lanza el número 7 debe añadir una cantidad previamente acordada a la bolsa de premio y pierde su turno.
-* Gana el jugador que primero complete los números en su tablero.
+## Rules
+* Each player has a board with numbers from 2 to 12 inclusive, excluding the number seven. The objective is to check all numbers in your board. First player to achive this is the winner.
+* Starting player is determined by the roll of a single die
+* In their turn the player presses `ENTER` to roll the dice, we will call the sum of the dice `roll`.  When `roll` is not checked in the current player's board, it gets checked.
+* When the player has already checked the value of `roll`, the turn corresponds to the next player whose not checked the value of `roll` in their board.
+* If `roll` equals to 7, the player adds a preset money quantity to the price pot.
 
-## Estructura
-**Dados:** Controlan la logica de los dados, existen un par de dados comunes para toda la partida.
-**Jugador:** El jugador actual y su tablero son manejados en esta clase, puede llevar un contador de perdidas en la partida actual-
-**Partida:** Controla el flujo de los turnos, la bolsa de premios.
-**Config:** Controla la carga y uso de configuración
-**Main:** Maneja el menú principal, selección de la configuración de la partida, y el loop principal.
+## Execution
+With the source code in a directory of your choice run:
+```bash
+python main.py
+```
 
-### Configuración (Conservar última usada en un archivo para fácil reinicio de la partida)
-1. Número de jugadores
-1. Nombres de los jugadores
-1. Apuesta inicial
-1. Cace por 7
-1. Color de los jugadores (Opcional)
+### Future development 
+1. Restart game after winner 
+1. Maybe some color identifiers for the players
+1. Something regarding terminal redrawing instead of printing new lines
 
-
+# Notes
+* Game is in spanish so if you are an english speaker, i will make an english version soon enough.
